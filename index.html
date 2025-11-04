@@ -1738,6 +1738,7 @@ margin-top: 5px;
     .container {
         padding-bottom: 90px !important;
     }
+    
 }
         /* 搜索框样式 */
 .search-container {
@@ -2133,11 +2134,13 @@ let isSearching = false; // 新增：是否正在搜索
         // 否则显示第一个分类的公司列表
         const firstCategory = categories[0];
         showCompaniesByCategory(firstCategory.id, firstCategory.name);
+        
     }
     updateBottomNavActive('companies');
 }
+        
         const categories = [
-            { id: 1, name: "加工食品展区", ename:"Processed Food", icon: "fas fa-utensils",show:"7.1A7-01" },
+            { id: 1, name: "食品展区", ename:"Food", icon: "fas fa-utensils",show:"7.1A7-01" },
             { id: 2, name: "土畜商会非洲产品展区", ename:"African Products", icon: "fas fa-earth-africa",show:"8.1C6-02" },
             { id: 3, name: "消费品展区", ename:"Consumer Goods", icon: "fas fa-shopping-bag",show:"5.1C6-05" },
             { id: 4, name: "服务贸易展区", ename:"Trade in Service", icon: "fas fa-handshake",show:"7.2A1-04" }
@@ -2878,6 +2881,7 @@ if (filteredProducts.length === 0) {
     </script>
 </body>
 </html>
+
 
 
 
