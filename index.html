@@ -1072,6 +1072,41 @@ margin-top: 5px;
 .vertical-slideshow .indicator:hover {
     background-color: rgba(255, 255, 255, 0.8);
 }
+        /* 页面标题双语样式 */
+.page-title-bilingual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.page-title-zh {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1a2a6c;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+.page-title-en {
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+    line-height: 1.1;
+    opacity: 0.8;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .page-title-zh {
+        font-size: 1.1rem;
+        margin-bottom: 1px;
+    }
+    
+    .page-title-en {
+        font-size: 0.75rem;
+    }
+}
 /* 左边栏样式 */
 .sidebar {
     width: 200px;
@@ -1117,6 +1152,10 @@ margin-top: 5px;
     color: #1a2a6c;
     border-bottom: 1px solid #e9ecef;
     margin-bottom: 10px;
+}
+    .sidebar-etitle {
+    font-size: 0.7rem;
+    color: #666;
 }
   /* 侧边栏分类双语样式 */
 .sidebar-category-content {
@@ -1927,14 +1966,17 @@ margin-top: 5px;
     <div id="project-intro-page" class="page">
          <div class="navbar">
             <button class="back-btn" onclick="showPage('cover-page')"><i class="fas fa-arrow-left"></i></button>
-            <div class="page-title">项目介绍</div>
+            <div class="page-title-bilingual">
+        <div class="page-title-zh">项目介绍</div>
+        <div class="page-title-en">Project Introduction</div>
+    </div>
             <div></div>
         </div>
         <div class="container" style="padding: 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h1 style="text-align: center; margin-bottom: 30px; color: #1a2a6c;">中国国际进口博览会</h1>
+                 <h1 style="text-align: center; margin-bottom: 30px; color: #999;">China International Import Expo</h1>
                 <div style="background: white; border-radius: 10px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                    <h2 style="color: #1a2a6c; margin-bottom: 20px;">项目简介</h2>
                   <div class="detail-bilingual-content">
                       <div class="bilingual-zh">
         本目录由联合国国际贸易中心(ITC)在支持组织45个发展中国家和最不发达国家的中小微企业参加于2025年11月5日至10日在中国上海举行的中国国际进口博览会(CIIE)的背景下编制。该项目旨在为中小微企业提供一个独特的机会，在已成为世界第二大消费国和进口国的中国推广其产品和服务，熟悉中国市场需求并建立新的业务联系。</div>
@@ -1977,15 +2019,18 @@ margin-top: 5px;
     <div id="organizer-intro-page" class="page">
         <div class="navbar">
             <button class="back-btn" onclick="showPage('cover-page')"><i class="fas fa-arrow-left"></i></button>
-            <div class="page-title">发起机构</div>
+            <div class="page-title-bilingual">
+        <div class="page-title-zh">发起机构</div>
+        <div class="page-title-en">Organizers</div>
+    </div>
             <div></div>
         </div>
         <div class="container" style="padding: 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h1 style="text-align: center; margin-bottom: 30px; color: #1a2a6c;">发起机构介绍</h1>
+                <h1 style="text-align: center; margin-bottom: 30px; color: #999;">Organizer Introduction</h1>
                 
                 <div style="background: white; border-radius: 10px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                    <h2 style="color: #1a2a6c; margin-bottom: 20px;">主办单位</h2>
                     <div class="org-header-center">
                    <img class="org-logo-img"
                                  src="images/ITC_logo_full.jpg"
@@ -2045,7 +2090,7 @@ margin-top: 5px;
     <!-- 新增搜索框 -->
     <div class="search-container" style="padding: 10px 15px; background: white; border-bottom: 1px solid #e0e0e0;">
         <div style="position: relative;">
-            <input type="text" id="company-search-input" placeholder="搜索公司或产品..." 
+            <input type="text" id="company-search-input" placeholder="搜索公司或产品: ; Search companies or products:" 
                    style="width: 100%; padding: 10px 40px 10px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; font-size: 0.9rem;">
             <i class="fas fa-search" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #999;"></i>
         </div>
@@ -2497,8 +2542,16 @@ function updateSidebarActive(categoryId) {
     // 更新左边栏激活状态
     updateSidebarActive(categoryId);
     
-    title.textContent = categoryName;
-    
+    // 获取当前分类的英文名
+    const currentCategory = categories.find(cat => cat.id === categoryId);
+    const categoryEnName = currentCategory ? currentCategory.ename : '';
+     // 设置双语标题
+    title.innerHTML = `
+        <div class="page-title-bilingual">
+            <div class="page-title-zh">${categoryName}</div>
+            <div class="page-title-en">${categoryEnName}</div>
+        </div>
+    `;
     // 显示该分类下的所有公司
     displayCompanies(categoryId, '');
 }
@@ -2574,10 +2627,20 @@ function initSearchFunction() {
                 const title = document.getElementById('companies-page-title');
                 if (keyword) {
                     const category = categories.find(c => c.id === currentCategoryId);
-                    title.textContent = `搜索: ${keyword} (${category.name})`;
+                    title.innerHTML = `
+             <div class="page-title-bilingual">
+            <div class="page-title-zh">搜索: ${keyword} (${category.name})</div>
+            <div class="page-title-en">Search: ${keyword} (${category.ename})</div>
+            </div>
+              `;
                 } else {
                     const category = categories.find(c => c.id === currentCategoryId);
-                    title.textContent = category.name;
+                     title.innerHTML = `
+        <div class="page-title-bilingual">
+            <div class="page-title-zh">${category.name}</div>
+            <div class="page-title-en">${category.ename}</div>
+        </div>
+    `;
                 }
             }
         });
@@ -2918,6 +2981,7 @@ if (filteredProducts.length === 0) {
     </script>
 </body>
 </html>
+
 
 
 
