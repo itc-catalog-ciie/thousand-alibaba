@@ -2242,6 +2242,7 @@ function loadCSVData() {
                     id: parseInt(company.id) || index + 1,
                     categoryId: parseInt(company.categoryId) || 1,
                     name: company.name || '',
+                    exhibit: company.exhibit || '',
                     description: company.description || '',
                     description_en: company.description_en || '',
                     logo: company.logo || '',
@@ -2711,7 +2712,7 @@ function formatBilingualText(zhText, enText) {
             </div>
             <div class="company-header-info">
                 <h2>${company.name}</h2>
-                <p>${categories.find(c => c.id === company.categoryId).name}</p>
+                <p>${company.exhibit}</p>
             </div>
         </div>
     </div>
@@ -2979,6 +2980,7 @@ if (filteredProducts.length === 0) {
     </script>
 </body>
 </html>
+
 
 
 
