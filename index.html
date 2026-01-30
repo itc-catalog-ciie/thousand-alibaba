@@ -2479,9 +2479,7 @@ function displayCompanies(categoryId, searchKeyword) {
             return (
                 (company.name && company.name.toLowerCase().includes(keyword)) ||
                 (company.product && company.product.toLowerCase().includes(keyword)) ||
-                (company.product_en && company.product_en.toLowerCase().includes(keyword)) ||
-                (company.description && company.description.toLowerCase().includes(keyword)) ||
-                (company.description_en && company.description_en.toLowerCase().includes(keyword))
+                (company.product_ch && company.product_ch.toLowerCase().includes(keyword))
             );
         });
     }
@@ -2506,8 +2504,8 @@ function displayCompanies(categoryId, searchKeyword) {
                 <div class="company-info">
                     <div class="company-name">${company.name}</div>
                     <div class="company-desc bilingual-content">
-                    <div class="bilingual-zh">${company.product}</div>
-                    <div class="bilingual-en">${company.product_en}</div>
+                    <div class="bilingual-zh">${company.product_ch}</div>
+                    <div class="bilingual-en">${company.product}</div>
                     </div>
                 </div>
                 <i class="fas fa-chevron-right" style="color: #ccc;"></i>
@@ -2662,7 +2660,7 @@ function formatBilingualText(zhText, enText) {
                         </div>
                     </div>
                 </div>
-                
+                  </div>
                     <div class="company-title-with-icon">
                <i class="fas fa-address-book"> 联系方式</i>
             <div class="company-title-en">Contact</div>
@@ -2765,6 +2763,7 @@ function formatBilingualText(zhText, enText) {
     </script>
 </body>
 </html>
+
 
 
 
