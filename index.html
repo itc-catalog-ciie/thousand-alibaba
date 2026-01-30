@@ -2632,7 +2632,7 @@ function formatBilingualText(zhText, enText) {
     websiteContainer.innerHTML = '';
     
     // 如果有网站链接，显示按钮
-   if (company.contact.website && company.contact.website.trim() !== '') {
+   if (company.alibaba && company.alibaba.trim() !== '') {
     const websiteButton = document.createElement('a');
     websiteButton.href = company.alibaba;
     websiteButton.target = '_blank'; // 在新标签页打开
@@ -2662,6 +2662,7 @@ function formatBilingualText(zhText, enText) {
     </script>
 </body>
 </html>
+
 
 
 
