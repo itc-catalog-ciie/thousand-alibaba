@@ -2634,13 +2634,13 @@ function formatBilingualText(zhText, enText) {
     // 如果有网站链接，显示按钮
    if (company.contact.website && company.contact.website.trim() !== '') {
     const websiteButton = document.createElement('a');
-    websiteButton.href = company.contact.website;
+    websiteButton.href = company.contact.alibaba;
     websiteButton.target = '_blank'; // 在新标签页打开
     websiteButton.className = 'website-button';
     websiteButton.innerHTML = `
         <i class="fas fa-external-link-alt"></i>
-        <div class="bilingual-content" style="display: inline-block; text-align: left;">
-            <div class="bilingual-zh" style="font-size: 1rem; margin-bottom: 2px;">访问阿里巴巴网店</div>
+        <div class="bilingual-content" style="display: inline-block; text-align: center;">
+            <div class="bilingual-zh" style="font-size: 1rem;color: rgba(255,255,255,0.9); margin-bottom: 2px;">访问阿里巴巴网店</div>
             <div class="bilingual-en" style="font-size: 0.8rem; color: rgba(255,255,255,0.9);">Visit Alibaba Store</div>
         </div>
     `;
@@ -2662,6 +2662,7 @@ function formatBilingualText(zhText, enText) {
     </script>
 </body>
 </html>
+
 
 
 
