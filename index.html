@@ -1533,119 +1533,7 @@ margin-top: 5px;
                 margin-bottom: 15px;
             }
         }
-/*滑动显示产品*/
-        /* 多图片产品样式 */
-.multiple-product {
-    width: 100%;
-    margin-bottom: 20px;
-}
 
-.multiple-images-container {
-    overflow-x: auto;
-    padding-bottom: 6px;
-    scrollbar-width: thin;
-    scrollbar-color: #4fc3f7 #f0f0f0;
-}
-
-.multiple-images-scroll {
-    display: flex;
-    gap: 10px;
-    padding: 0 5px;
-    min-width: min-content;
-}
-
-.multiple-image-item {
-    flex: 0 0 auto;
-    width: 150px;
-    height: 120px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #f0f0f0;
-}
-
-.multiple-image-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-    .multiple-images-container {
-        -webkit-overflow-scrolling: touch; /* 平滑滚动 */
-    }
-    
-    .multiple-image-item {
-        width: 150px;
-        height: 110px;
-    }
-    
-    .products-grid .multiple-product {
-        width: 100%;
-    }
-}
-
-/* 产品网格布局调整 */
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
-    padding-bottom: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    box-sizing: border-box;
-    width: 100%;
-}
-
-/* 多图片产品在网格中占满整行 */
-.products-grid .multiple-product {
-    grid-column: 1 / -1;
-}
-
-/* 移动端产品网格调整 */
-@media (max-width: 768px) {
-   
-    /* 多图片产品在移动端保持横向滚动 */
-    .products-grid .multiple-product {
-        width: 100% !important;
-        min-width: 100%;
-        max-width: 100%;
-    }
-}
-     @media (max-width: 768px) {
-  .products-grid {
-    display: flex !important;
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 15px;
-    flex-wrap: nowrap;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    scrollbar-width: thin;
-    scrollbar-color: #4fc3f7 #f0f0f0;
-    -webkit-overflow-scrolling: touch; /* 添加平滑滚动 */
-    align-items: stretch; /* 确保所有卡片高度一致 */
-  }
-  
-  .product-card {
-    width: 180px !important; /* 强制固定宽度 */
-    flex: none !important;   /* 禁用flex增长和收缩 */
-    min-width: 180px;
-    max-width: 180px;        /* 确保最大宽度与最小宽度相同 */
-    box-sizing: border-box;
-    overflow: hidden;        /* 防止内容溢出影响布局 */
-  }
-  
-  /* 添加滚动提示 */
-  .products-grid:after {
-    content: '';
-    display: block;
-    min-width: 10px;
-    height: 1px;
-  }
-}
         @media (min-width: 768px) {
             .contact-info {
                 grid-template-columns: 1fr 1fr;
@@ -1849,6 +1737,37 @@ margin-top: 5px;
         right: 12px !important;
         font-size: 0.9rem;
     }
+}
+        /* 网站按钮样式 */
+.website-button-container {
+    padding: 20px 15px;
+    text-align: center;
+}
+
+.website-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a2a6c 0%, #4fc3f7 100%);
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+}
+
+.website-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.website-button i {
+    margin-right: 10px;
+    font-size: 1.3rem;
 }
     </style>
 </head>
@@ -2131,17 +2050,17 @@ margin-top: 5px;
         <div id="company-detail-container">
             <!-- 企业详情将通过JavaScript动态生成 -->
         </div>
-        <div class="company-detail">
-            <div class="company-body">
-                <div class="company-title-with-icon">
-                    <i class="fas fa-box-open"> 产品展示</i>
-                    <div class="company-title-en">Product Display</div>
-                </div>
-                <div class="products-grid" id="company-products-container">
-                    <!-- 企业产品将通过JavaScript动态生成 -->
-                </div>
-            </div>
+      <div class="company-detail">
+    <div class="company-body">
+        <div class="company-title-with-icon">
+            <i class="fas fa-external-link-alt"> 公司网站</i>
+            <div class="company-title-en">Company Website</div>
         </div>
+        <div class="website-button-container" id="company-website-container">
+            <!-- 网站链接按钮将通过JavaScript动态生成 -->
+        </div>
+    </div>
+</div>
     </div> 
 </div>
     <!-- 产品详情页面 -->
@@ -2239,32 +2158,23 @@ function loadCSVData() {
         complete: function(results) {
             if (results.data && results.data.length > 0) {
                 companies = results.data.map((company, index) => ({
-                    id: parseInt(company.id) || index + 1,
+                    id: parseInt(company.No) || index + 1,
                     categoryId: parseInt(company.categoryId) || 1,
-                    name: company.name || '',
-                    exhibit: company.exhibit || '',
-                    description: company.description || '',
-                    description_en: company.description_en || '',
+                    name: company.CompanyName || '',
+                    industry: company.IndustrySector || '',
+                    industry_ch: company.industry_ch || '',
                     logo: company.logo || '',
-                    country: company.country || '',
-                    country_en: company.country_en || '',
-                    capacity: company.capacity || '',
-                    capacity_en: company.capacity_en || '',
-                    size: company.size || '',
-                    size_en: company.size_en || '',
-                    export: company.export || '',
-                    export_en: company.export_en || '',
-                    commitment: company.commitment || '',
-                    commitment_en: company.commitment_en || '',
-                    product: company.product || '',
-                    product_en: company.product_en || '',
+                    country: company.Country || '',
+                    country_ch: company.Country_ch || '',
+                    product: company.Typeofproducts || '',
+                    product_ch: company.product_ch || '',
+                    alibaba: company.AlibabaStoreWebsite || '',
                     contact: {
-                        person: company.person || '',
-                        phone: company.phone || '',
-                        email: company.email || '',
-                        website: company.website || '',
-                        address: company.address || '',
-                        wechat: company.wechat || ''
+                        person: company.ContactPerson || '',
+                        position: company.position || '',
+                        phone: company.PhoneNumber || '',
+                        email: company.EmailAddress || '',
+                        website: company.CompanyWebsite || ''
                     }
                 }));
                 
@@ -2285,7 +2195,7 @@ function loadCSVData() {
 }
 
 // 新增：加载产品CSV数据
-function loadProductCSVData() {
+/*function loadProductCSVData() {
     Papa.parse('data/ufair product_list.csv', { // 请确保路径指向您的产品CSV文件
         download: true,
         header: true,
@@ -2313,7 +2223,7 @@ function loadProductCSVData() {
         }
     });
 }
-        
+  */      
 // 竖屏轮播功能
 let currentVerticalSlide = 0;
 let verticalSlideInterval;
@@ -2712,18 +2622,12 @@ function formatBilingualText(zhText, enText) {
             </div>
             <div class="company-header-info">
                 <h2>${company.name}</h2>
-                <p>${company.exhibit}</p>
+                <p>${company.industry_ch}</p>
+                <p>${company.industry}</p>
             </div>
         </div>
     </div>
                 <div class="company-body">
-                 <div class="company-title-with-icon">
-               <i class="fas fa-info-circle"> 公司简介</i>
-            <div class="company-title-en">Company Introduction</div>
-                   </div>
-                     <div class="company-description bilingual-content">
-                ${formatBilingualText(company.description, company.description_en)}
-            </div>
             <!-- 新增：公司详情部分 -->
             <div class="company-title-with-icon">
                 <i class="fas fa-building"> 公司详情</i>
@@ -2740,7 +2644,7 @@ function formatBilingualText(zhText, enText) {
                       <div class="label-en">Country</div>
                       </div>
                               <div class="contact-value bilingual-content">
-                            ${formatBilingualText(company.country, company.country_en)}
+                            ${formatBilingualText(company.country_ch, company.country)}
                         </div>
                             </div>
                         </div>
@@ -2750,57 +2654,15 @@ function formatBilingualText(zhText, enText) {
                     </div>
                     <div class="contact-details">
                         <div class="contact-label">
-            <div class="label-zh">生产能力</div>
-            <div class="label-en">Production Capacity</div>
+            <div class="label-zh">行业领域</div>
+            <div class="label-en">Industry</div>
         </div>
                         <div class="contact-value bilingual-content">
-                            ${formatBilingualText(company.capacity, company.capacity_en)}
+                            ${formatBilingualText(company.industry_ch, company.industry)}
                         </div>
                     </div>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <div class="contact-details">
-                       <div class="contact-label">
-            <div class="label-zh">公司规模</div>
-            <div class="label-en">Company Size</div>
-        </div>
-                       <div class="contact-value bilingual-content">
-                            ${formatBilingualText(company.size, company.size_en)}
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-ship"></i>
-                    </div>
-                    <div class="contact-details">
-                      <div class="contact-label">
-            <div class="label-zh">出口情况</div>
-            <div class="label-en">Export Experience</div>
-        </div>
-                      <div class="contact-value bilingual-content">
-                            ${formatBilingualText(company.export, company.export_en)}
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <div class="contact-details">
-                       <div class="contact-label">
-            <div class="label-zh">合作承诺</div>
-            <div class="label-en">Commitment to Cooperation</div>
-         </div>
-                       <div class="contact-value bilingual-content">
-                            ${formatBilingualText(company.commitment, company.commitment_en)}
-                        </div>
-                    </div>
-                </div>
-            </div>
+                
                     <div class="company-title-with-icon">
                <i class="fas fa-address-book"> 联系方式</i>
             <div class="company-title-en">Contact</div>
@@ -2820,14 +2682,26 @@ function formatBilingualText(zhText, enText) {
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon">
+                                <i class="fab fa-weixin"></i>
+                            </div>
+                            <div class="contact-details">
+                               <div class="contact-label">
+            <div class="label-zh">微信号</div>
+            <div class="label-en">WeChat ID</div>
+             </div>
+                                <div class="contact-value">${company.contact.wechat}</div>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
                                 <i class="fas fa-phone"></i>
                             </div>
                             <div class="contact-details">
                                <div class="contact-label">
-            <div class="label-zh">联系电话</div>
-            <div class="label-en">Phone Number</div>
+            <div class="label-zh">职位</div>
+            <div class="label-en">Position</div>
         </div>
-                                <div class="contact-value">${company.contact.phone}</div>
+                                <div class="contact-value">${company.contact.Position}</div>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -2854,132 +2728,44 @@ function formatBilingualText(zhText, enText) {
                                 <div class="contact-value">${company.contact.website}</div>
                             </div>
                         </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fab fa-weixin"></i>
-                            </div>
-                            <div class="contact-details">
-                               <div class="contact-label">
-            <div class="label-zh">微信号</div>
-            <div class="label-en">WeChat ID</div>
-             </div>
-                                <div class="contact-value">${company.contact.wechat}</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             `;
             
             container.appendChild(companyDetail);
             
-            // 创建企业产品列表
-           // 替换现有的产品展示代码
-productsContainer.innerHTML = '';
-
-if (filteredProducts.length === 0) {
-    productsContainer.innerHTML = '<p>暂无产品信息</p>';
-} else {
-    filteredProducts.forEach(product => {
-        if (product.multiple === 1) {
-            // 多图片产品：横向滑动展示
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card multiple-product';
-            productCard.innerHTML = `
-                <div class="multiple-images-container">
-                    <div class="multiple-images-scroll">
-                        ${product.image.split(';').map(img => `
-                            <div class="multiple-image-item">
-                                <img src="${img.trim()}" alt="${product.name}" onerror="this.style.display='none'">
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-                <div class="product-info">
-                    <div class="product-name bilingual-content">
-                        <div class="bilingual-zh">${product.name}</div>
-                        <div class="bilingual-en">${product.name_en}</div>
-                    </div>
-                </div>
-            `;
-            productsContainer.appendChild(productCard);
-        } else {
-            // 单图片产品：原有卡片形式
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card';
-            productCard.innerHTML = `
-                <div class="product-image">
-                    ${product.image ? 
-                        `<img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">` : 
-                        ''
-                    }
-                </div>
-                <div class="product-info">
-                    <div class="product-name bilingual-content">
-                        <div class="bilingual-zh">${product.name}</div>
-                        <div class="bilingual-en">${product.name_en}</div>
-                    </div>
-                </div>
-            `;
-            productCard.addEventListener('click', () => {
-                showProductDetail(product.id);
-            });
-            productsContainer.appendChild(productCard);
-        }
-    });
-}
-            
-            showPage('company-detail-page');
+          const websiteContainer = document.getElementById('company-website-container');
+    websiteContainer.innerHTML = '';
+    
+    // 如果有网站链接，显示按钮
+    if (company.contact.website && company.contact.website.trim() !== '') {
+        const websiteButton = document.createElement('a');
+        websiteButton.href = company.contact.website;
+        websiteButton.target = '_blank'; // 在新标签页打开
+        websiteButton.className = 'website-button';
+        websiteButton.innerHTML = `
+            <i class="fas fa-external-link-alt"></i>
+            <span>访问公司官网</span>
+        `;
+        websiteContainer.appendChild(websiteButton);
+    } else {
+        websiteContainer.innerHTML = '<p>暂无公司网站信息</p>';
+    }
+    
+    showPage('company-detail-page');
         }
         
-        // 显示产品详情
-        function showProductDetail(productId) {
-            const container = document.getElementById('product-detail-container');
-            const title = document.getElementById('product-detail-page-title');
-            
-            const product = products.find(p => p.id === productId);
-            const company = companies.find(c => c.id === product.companyId);
-            
-            title.textContent = product.name;
-            container.innerHTML = '';
-            
-            const productDetail = document.createElement('div');
-            productDetail.className = 'product-detail';
-            productDetail.innerHTML = `
-                <div class="product-detail-image">
-                    <img src="${product.image}" alt="${product.name}">
-                </div>
-                <div class="product-detail-info">
-                    <div class="product-detail-name">${product.name}</div>
-                    <div class="product-detail-price">${product.price}</div>
-                    <div class="product-detail-desc">${product.description}</div>
-                    
-                    <div class="specs-title">产品规格</div>
-                    <ul class="specs-list">
-                        ${product.specs.map(spec => `<li>${spec}</li>`).join('')}
-                    </ul>
-                    
-                    <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
-                        <div style="font-weight: bold; margin-bottom: 5px;">生产企业</div>
-                        <div>${company.name}</div>
-                        <div style="color: #666; font-size: 0.9rem;">${company.description}</div>
-                    </div>
-                </div>
-            `;
-            
-            container.appendChild(productDetail);
-            showPage('product-detail-page');
-        }
         // 初始化页面
       document.addEventListener('DOMContentLoaded', function() {
     initVerticalSlideshow();
     loadCSVData();
-    loadProductCSVData();
     initSidebarCategories();
     initSearchFunction(); // 新增：初始化搜索功能
 });
     </script>
 </body>
 </html>
+
 
 
 
