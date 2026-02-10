@@ -1783,11 +1783,6 @@ margin-top: 5px;
                     
                     <!-- 展商分类区域 -->
                     <div class="intro-section">
-                        <div class="intro-title-with-icon">
-               <i class="fas fa-users"></i>
-                <span class="intro-title">展商名单</span>
-            <div class="intro-title-en">Exhibitor List</div>
-                   </div>
                         <div class="categories-grid" id="categories-container">
                             <!-- 分类将通过JavaScript动态生成 -->
                         </div>
@@ -2047,7 +2042,7 @@ let isSearching = false; // 新增：是否正在搜索
 }
         
         const categories = [
-            { id: 1, name: "国别（地区）展团区域", ename:"Country(Region) Exhibition", icon: "fas fa-utensils",show:"3H" }
+            { id: 1, name: "展商名单", ename:"Exhibitor List", icon: "fas fa-users" }
         ];
         
        //导入csv文件
@@ -2285,7 +2280,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="category-name">${category.name}</div>
     <div class="category-name-en">${category.ename}</div>
-     <div class="category-name">${category.show}</div>
      `;
                 categoryCard.addEventListener('click', () => {
                     showPage('companies-page');
@@ -2670,6 +2664,7 @@ function formatBilingualText(zhText, enText) {
     </script>
 </body>
 </html>
+
 
 
 
